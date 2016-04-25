@@ -1,7 +1,7 @@
 {
   "name": "xhr-file",
   "description": "Upload/Download files using XMLHttpRequest.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "author": "Olivier Louvignes <olivier@mg-crea.com>",
