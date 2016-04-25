@@ -52,8 +52,6 @@ Upload/Download files using XMLHttpRequest.
 + http://olouv.com
 + http://github.com/mgcrea
 
-Inspired by the [AngularJS resource](https://github.com/angular/angular.js/blob/master/src/ngResource/resource.js).
-
 ## License
 
 ```
