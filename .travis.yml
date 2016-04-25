@@ -6,7 +6,7 @@ node_js:
 
 env:
   global:
-    - CODE_CLIMATE_TOKEN=
+    - CODE_CLIMATE_TOKEN=f348c2f9d44c580c2aab8b0c931648a29eac7c28a7ac155f241a28d189581f7f
 
 before_script:
   - date --rfc-2822
