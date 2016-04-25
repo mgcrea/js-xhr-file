@@ -10,13 +10,19 @@ Upload/Download files using XMLHttpRequest.
 
 ### Quickstart
 
-1. Upload a file
+1. Upload a file and track progress
 
     ```js
     import {upload} from 'xhr-file';
 
     const hostUrl = 'https://localhost:3000/files';
-    upload(hostUrl, {file})
+    const onProgress = (ev) => {
+      if (ev.lengthComputable) {
+        const progress = Math.floor(100 * ev.loaded / ev.total);
+        console.log(`progress=${progress}%`);
+      }
+    };
+    upload(hostUrl, {file, onProgress})
       .then((res) => {
         console.log('res', res);
       })
@@ -28,7 +34,13 @@ Upload/Download files using XMLHttpRequest.
     import {download} from 'xhr-file';
 
     const fileUrl = 'https://localhost:3000/files/foo.png';
-    download(fileUrl)
+    const onProgress = (ev) => {
+      if (ev.lengthComputable) {
+        const progress = Math.floor(100 * ev.loaded / ev.total);
+        console.log(`progress=${progress}%`);
+      }
+    };
+    download(fileUrl, {onProgress})
       .then((blob) => {
         console.log('file blob', blob);
       })
