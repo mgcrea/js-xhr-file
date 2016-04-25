@@ -1,3 +1,3 @@
 --ui bdd
---compilers js:node_modules/babel-cli/node_modules/babel-register
+--compilers js:babel-register
 --recursive
