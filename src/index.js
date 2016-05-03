@@ -1,6 +1,14 @@
 
 // const isResumeSupported = window.Blob && window.Blob.prototype.slice;
 
+function applyRequestHeaders(req, headers) {
+  if (typeof headers === 'object') {
+    Object.keys(headers).forEach(key => {
+      req.setRequestHeader(key, headers[key]);
+    });
+  }
+}
+
 const upload = (url, {file, headers, responseType = 'json', onProgress} = {}) =>
   new Promise((resolve, reject) => {
     const data = new FormData();
@@ -8,11 +16,7 @@ const upload = (url, {file, headers, responseType = 'json', onProgress} = {}) =>
     const req = new XMLHttpRequest();
     req.open('POST', url, true);
     req.responseType = responseType;
-    if (typeof headers === 'object') {
-      Object.keys(headers).forEach(key => {
-        req.setRequestHeader(key, headers[key]);
-      });
-    }
+    applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
       if (req.status >= 200 && req.status < 300) {
         resolve(req.response);
@@ -33,11 +37,7 @@ const download = (url, {headers, responseType = 'blob', onProgress} = {}) =>
     const req = new XMLHttpRequest();
     req.open('GET', url, true);
     req.responseType = responseType;
-    if (typeof headers === 'object') {
-      Object.keys(headers).forEach(key => {
-        req.setRequestHeader(key, headers[key]);
-      });
-    }
+    applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
       if (req.status >= 200 && req.status < 300) {
         resolve(req.response);
