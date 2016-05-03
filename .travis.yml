@@ -18,3 +18,7 @@ script:
 
 after_script:
   - cat coverage/lcov.info | codeclimate-test-reporter
+
+addons:
+  code_climate:
+    repo_token: f348c2f9d44c580c2aab8b0c931648a29eac7c28a7ac155f241a28d189581f7f
