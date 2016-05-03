@@ -2,7 +2,7 @@
 
 [![project status](https://img.shields.io/badge/status-beta-blue.svg?style=flat)](https://github.com/mgcrea/js-xhr-file) [![license](https://img.shields.io/github/license/mgcrea/js-xhr-file.svg?style=flat)](https://tldrlegal.com/license/mit-license) [![build status](http://img.shields.io/travis/mgcrea/js-xhr-file/master.svg?style=flat)](http://travis-ci.org/mgcrea/js-xhr-file) [![dependencies status](https://img.shields.io/david/mgcrea/js-xhr-file.svg?style=flat)](https://david-dm.org/mgcrea/js-xhr-file) [![devDependencies status](https://img.shields.io/david/dev/mgcrea/js-xhr-file.svg?style=flat)](https://david-dm.org/mgcrea/js-xhr-file#info=devDependencies) [![coverage status](http://img.shields.io/codeclimate/coverage/github/mgcrea/js-xhr-file.svg?style=flat)](https://codeclimate.com/github/mgcrea/js-xhr-file) [![climate status](https://img.shields.io/codeclimate/github/mgcrea/js-xhr-file.svg?style=flat)](https://codeclimate.com/github/mgcrea/js-xhr-file)
 
-Upload/Download files using XMLHttpRequest.
+Upload/Download files using XMLHttpRequest with a Promise-based API.
 
 - Relies on [XMLHttpRequest](https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest) to perform HTTP requests.
 
