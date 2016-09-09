@@ -9,11 +9,11 @@ try { require('debug-utils'); } catch (err) {}; // eslint-disable-line
 // Configuration
 const host = 'http://localhost:3000';
 
-before(() => {
+before(function beforeAll() {
   this.jsdom = jsdom();
 });
 
-after(() => {
+after(function afterAll() {
   this.jsdom();
 });
 
