@@ -1,14 +1,10 @@
 {
-  "extends": "airbnb",
+  "extends": "./../.eslintrc",
   "parser": "babel-eslint",
   "env": {
     mocha: true
   },
   "rules": {
-    "react/prefer-stateless-function": 0,
-    "object-curly-spacing": [2, "never"],
-    "comma-dangle": [2, "never"],
-    "max-len": 0,
-    "no-unused-vars": 1
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": true, "peerDependencies": false}]
   }
 }

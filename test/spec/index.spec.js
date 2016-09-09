@@ -1,19 +1,21 @@
-import expect, {createSpy, spyOn, isSpy} from 'expect';
+import expect from 'expect';
 import sinon from 'sinon';
+import jsdom from 'jsdom-global';
 
 import {upload, download} from '../../src';
+
 try { require('debug-utils'); } catch (err) {}; // eslint-disable-line
 
 // Configuration
 const host = 'http://localhost:3000';
 
-before(function () {
-  this.jsdom = require('jsdom-global')()
-})
+before(() => {
+  this.jsdom = jsdom();
+});
 
-after(function () {
-  this.jsdom()
-})
+after(() => {
+  this.jsdom();
+});
 
 describe('download', () => {
   let xhr;
@@ -63,7 +65,7 @@ describe('download', () => {
   });
   it('should correctly support custom headers', (done) => {
     const body = {ok: true};
-    download(`${host}/files/foo.png`, {headers: {['X-Foo']: 'bar'}})
+    download(`${host}/files/foo.png`, {headers: {'X-Foo': 'bar'}})
       .then(res => {
         expect(res).toEqual(JSON.stringify(body));
         done();
@@ -128,7 +130,7 @@ describe('upload', () => {
     const body = {ok: true};
     const blob = new Blob(['foobar']);
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
-    upload(`${host}/files`, {file, headers: {['X-Foo']: 'bar'}})
+    upload(`${host}/files`, {file, headers: {'X-Foo': 'bar'}})
       .then(res => {
         expect(res).toEqual(body);
         done();
