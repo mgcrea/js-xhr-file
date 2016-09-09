@@ -1,6 +1,5 @@
 import expect, {createSpy, spyOn, isSpy} from 'expect';
 import sinon from 'sinon';
-import jsdom from 'mocha-jsdom';
 
 import {upload, download} from '../../src';
 try { require('debug-utils'); } catch (err) {}; // eslint-disable-line
@@ -8,8 +7,15 @@ try { require('debug-utils'); } catch (err) {}; // eslint-disable-line
 // Configuration
 const host = 'http://localhost:3000';
 
+before(function () {
+  this.jsdom = require('jsdom-global')()
+})
+
+after(function () {
+  this.jsdom()
+})
+
 describe('download', () => {
-  jsdom();
   let xhr;
   let requests;
   beforeEach(() => {
@@ -73,7 +79,6 @@ describe('download', () => {
 });
 
 describe('upload', () => {
-  jsdom();
   let xhr;
   let requests;
   beforeEach(() => {
