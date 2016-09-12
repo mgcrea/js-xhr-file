@@ -34,7 +34,7 @@ describe('download', () => {
   it('should correctly download a file', (done) => {
     const body = {ok: true};
     download(`${host}/files/foo.png`)
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
         done();
       })
@@ -51,7 +51,7 @@ describe('download', () => {
     const body = {ok: true};
     const onProgress = expect.createSpy();
     download(`${host}/files/foo.png`, {onProgress})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
         done();
       })
@@ -68,7 +68,7 @@ describe('download', () => {
   it('should correctly support custom headers', (done) => {
     const body = {ok: true};
     download(`${host}/files/foo.png`, {headers: {'X-Foo': 'bar'}})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
         done();
       })
@@ -84,7 +84,7 @@ describe('download', () => {
   it('should correctly support credentials', (done) => {
     const body = {ok: true};
     download(`${host}/files/foo.png`, {credentials: true})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
         done();
       })
@@ -117,7 +117,7 @@ describe('upload', () => {
     const blob = new Blob(['foobar']);
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     upload(`${host}/files`, {file})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(body);
         done();
       })
@@ -134,7 +134,7 @@ describe('upload', () => {
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     const onProgress = expect.createSpy();
     upload(`${host}/files`, {file, onProgress})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(body);
         done();
       })
@@ -151,7 +151,7 @@ describe('upload', () => {
     const blob = new Blob(['foobar']);
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     upload(`${host}/files`, {file, headers: {'X-Foo': 'bar'}})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(body);
         done();
       })
@@ -167,7 +167,7 @@ describe('upload', () => {
     const blob = new Blob(['foobar']);
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     upload(`${host}/files`, {file, credentials: true})
-      .then(res => {
+      .then((res) => {
         expect(res).toEqual(body);
         done();
       })

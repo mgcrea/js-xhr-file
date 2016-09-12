@@ -3,7 +3,7 @@
 
 function applyRequestHeaders(req, headers) {
   if (typeof headers === 'object') {
-    Object.keys(headers).forEach(key => {
+    Object.keys(headers).forEach((key) => {
       req.setRequestHeader(key, headers[key]);
     });
   }
@@ -45,7 +45,7 @@ const download = (url, {headers, responseType = 'blob', credentials = false, onP
         resolve(req.response);
       }
     });
-    req.addEventListener('progress', ev => {
+    req.addEventListener('progress', (ev) => {
       if (onProgress) {
         onProgress(ev);
       }
