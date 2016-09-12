@@ -9,12 +9,13 @@ function applyRequestHeaders(req, headers) {
   }
 }
 
-const upload = (url, {file, headers, responseType = 'json', onProgress} = {}) =>
+const upload = (url, {file, headers, responseType = 'json', credentials = false, onProgress} = {}) =>
   new Promise((resolve, reject) => {
     const data = new FormData();
     data.append('file', file);
     const req = new XMLHttpRequest();
     req.open('POST', url, true);
+    req.withCredentials = credentials;
     req.responseType = responseType;
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
@@ -32,10 +33,11 @@ const upload = (url, {file, headers, responseType = 'json', onProgress} = {}) =>
     req.send(data);
   });
 
-const download = (url, {headers, responseType = 'blob', onProgress} = {}) =>
+const download = (url, {headers, responseType = 'blob', credentials = false, onProgress} = {}) =>
   new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
     req.open('GET', url, true);
+    req.withCredentials = credentials;
     req.responseType = responseType;
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {

@@ -40,6 +40,7 @@ describe('download', () => {
       })
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
+    expect(requests[0].withCredentials).toBe(false);
     expect(requests[0].requestHeaders).toEqual({});
     expect(requests[0].requestBody).toBe(null);
     expect(requests[0].url).toBe(`${host}/files/foo.png`);
@@ -56,6 +57,7 @@ describe('download', () => {
       })
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
+    expect(requests[0].withCredentials).toBe(false);
     expect(requests[0].requestHeaders).toEqual({});
     expect(requests[0].requestBody).toBe(null);
     // expect(onProgress).toHaveBeenCalled(); // @TODO report issue to jsdom
@@ -72,8 +74,24 @@ describe('download', () => {
       })
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
+    expect(requests[0].withCredentials).toBe(false);
     expect(requests[0].requestBody).toBe(null);
     expect(requests[0].requestHeaders).toEqual({'X-Foo': 'bar'});
+    expect(requests[0].url).toBe(`${host}/files/foo.png`);
+    requests[0].responseType = 'text';
+    requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
+  });
+  it('should correctly support credentials', (done) => {
+    const body = {ok: true};
+    download(`${host}/files/foo.png`, {credentials: true})
+      .then(res => {
+        expect(res).toEqual(JSON.stringify(body));
+        done();
+      })
+      .catch(done);
+    expect(requests[0].responseType).toBe('blob');
+    expect(requests[0].withCredentials).toBe(true);
+    expect(requests[0].requestBody).toBe(null);
     expect(requests[0].url).toBe(`${host}/files/foo.png`);
     requests[0].responseType = 'text';
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
@@ -105,6 +123,7 @@ describe('upload', () => {
       })
       .catch(done);
     expect(requests[0].responseType).toBe('json');
+    expect(requests[0].withCredentials).toBe(false);
     expect(requests[0].requestHeaders).toEqual({});
     expect(requests[0].url).toBe(`${host}/files`);
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
@@ -121,6 +140,7 @@ describe('upload', () => {
       })
       .catch(done);
     expect(requests[0].responseType).toBe('json');
+    expect(requests[0].withCredentials).toBe(false);
     expect(requests[0].requestHeaders).toEqual({});
     // expect(onProgress).toHaveBeenCalled(); // @TODO report issue to jsdom
     expect(requests[0].url).toBe(`${host}/files`);
@@ -137,7 +157,23 @@ describe('upload', () => {
       })
       .catch(done);
     expect(requests[0].responseType).toBe('json');
+    expect(requests[0].withCredentials).toBe(false);
     expect(requests[0].requestHeaders).toEqual({'X-Foo': 'bar'});
+    expect(requests[0].url).toBe(`${host}/files`);
+    requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
+  });
+  it('should correctly support custom headers', (done) => {
+    const body = {ok: true};
+    const blob = new Blob(['foobar']);
+    const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
+    upload(`${host}/files`, {file, credentials: true})
+      .then(res => {
+        expect(res).toEqual(body);
+        done();
+      })
+      .catch(done);
+    expect(requests[0].responseType).toBe('json');
+    expect(requests[0].withCredentials).toBe(true);
     expect(requests[0].url).toBe(`${host}/files`);
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
   });
