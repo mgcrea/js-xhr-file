@@ -1,8 +1,9 @@
-*.log
-.DS_Store
-node_modules/
 _book/
-coverage/
+.DS_Store
 .nyc_output/
 .tmp/
+*.log
+coverage/
 lib/
+node_modules/
+yarn.lock

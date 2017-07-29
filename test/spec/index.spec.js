@@ -1,21 +1,11 @@
 import expect from 'expect';
 import sinon from 'sinon';
-import jsdom from 'jsdom-global';
 
 import {upload, download} from '../../src';
 
-try { require('debug-utils'); } catch (err) {}; // eslint-disable-line
-
 // Configuration
 const host = 'http://localhost:3000';
-
-before(function beforeAll() {
-  this.jsdom = jsdom();
-});
-
-after(function afterAll() {
-  this.jsdom();
-});
+const expectedRequestHeaders = {'Content-Type': 'text/plain;charset=utf-8'};
 
 describe('download', () => {
   let xhr;
@@ -41,8 +31,8 @@ describe('download', () => {
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
     expect(requests[0].withCredentials).toBe(false);
-    expect(requests[0].requestHeaders).toEqual({});
-    expect(requests[0].requestBody).toBe(null);
+    expect(requests[0].requestHeaders).toEqual(expectedRequestHeaders);
+    expect(requests[0].requestBody).toBe(undefined);
     expect(requests[0].url).toBe(`${host}/files/foo.png`);
     requests[0].responseType = 'text';
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
@@ -58,8 +48,8 @@ describe('download', () => {
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
     expect(requests[0].withCredentials).toBe(false);
-    expect(requests[0].requestHeaders).toEqual({});
-    expect(requests[0].requestBody).toBe(null);
+    expect(requests[0].requestHeaders).toEqual(expectedRequestHeaders);
+    expect(requests[0].requestBody).toBe(undefined);
     // expect(onProgress).toHaveBeenCalled(); // @TODO report issue to jsdom
     expect(requests[0].url).toBe(`${host}/files/foo.png`);
     requests[0].responseType = 'text';
@@ -75,8 +65,8 @@ describe('download', () => {
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
     expect(requests[0].withCredentials).toBe(false);
-    expect(requests[0].requestBody).toBe(null);
-    expect(requests[0].requestHeaders).toEqual({'X-Foo': 'bar'});
+    expect(requests[0].requestBody).toBe(undefined);
+    expect(requests[0].requestHeaders).toEqual({...expectedRequestHeaders, 'X-Foo': 'bar'});
     expect(requests[0].url).toBe(`${host}/files/foo.png`);
     requests[0].responseType = 'text';
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
@@ -91,7 +81,7 @@ describe('download', () => {
       .catch(done);
     expect(requests[0].responseType).toBe('blob');
     expect(requests[0].withCredentials).toBe(true);
-    expect(requests[0].requestBody).toBe(null);
+    expect(requests[0].requestBody).toBe(undefined);
     expect(requests[0].url).toBe(`${host}/files/foo.png`);
     requests[0].responseType = 'text';
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
