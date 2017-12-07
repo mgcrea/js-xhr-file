@@ -22,7 +22,7 @@ Upload/Download files using XMLHttpRequest with a Promise-based API.
         console.log(`progress=${progress}%`);
       }
     };
-    download(fileUrl, {file, onProgress, headers: {['X-Foo']: 'bar'})
+    upload(fileUrl, {file, onProgress, headers: {['X-Foo']: 'bar'})
       .then((res) => {
         console.log('res', res);
       })
