@@ -4,6 +4,9 @@
   "env": {
     mocha: true
   },
+  "globals": {
+    "jest": false
+  },
   "rules": {
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": true, "peerDependencies": false}]
   }
