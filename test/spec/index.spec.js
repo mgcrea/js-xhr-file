@@ -39,7 +39,7 @@ describe('download', () => {
   });
   it('should correctly monitor progress', (done) => {
     const body = {ok: true};
-    const onProgress = expect.createSpy();
+    const onProgress = jest.fn();
     download(`${host}/files/foo.png`, {onProgress})
       .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
@@ -122,7 +122,7 @@ describe('upload', () => {
     const body = {ok: true};
     const blob = new Blob(['foobar']);
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
-    const onProgress = expect.createSpy();
+    const onProgress = jest.fn();
     upload(`${host}/files`, {file, onProgress})
       .then((res) => {
         expect(res).toEqual(body);
