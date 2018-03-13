@@ -73,7 +73,7 @@ describe('download', () => {
   });
   it('should correctly support credentials', (done) => {
     const body = {ok: true};
-    download(`${host}/files/foo.png`, {credentials: true})
+    download(`${host}/files/foo.png`, {withCredentials: true})
       .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
         done();
@@ -156,7 +156,7 @@ describe('upload', () => {
     const body = {ok: true};
     const blob = new Blob(['foobar']);
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
-    upload(`${host}/files`, {file, credentials: true})
+    upload(`${host}/files`, {file, withCredentials: true})
       .then((res) => {
         expect(res).toEqual(body);
         done();

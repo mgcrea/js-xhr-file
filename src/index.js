@@ -8,10 +8,22 @@ function applyRequestHeaders(req, headers) {
   }
 }
 
-const upload = (url, {file, headers, responseType = 'json', withCredentials = false, onProgress} = {}) =>
+const upload = (
+  url,
+  {
+    file,
+    fieldName = 'file',
+    headers,
+    responseType = 'json',
+    withCredentials = false,
+    data = new FormData(),
+    onProgress
+  } = {}
+) =>
   new Promise((resolve, reject) => {
-    const data = new FormData();
-    data.append('file', file);
+    if (!data.has(fieldName)) {
+      data.append(fieldName, file);
+    }
     const req = new XMLHttpRequest();
     req.open('POST', url, true);
     req.withCredentials = withCredentials;
