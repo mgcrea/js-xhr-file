@@ -1,4 +1,3 @@
-
 // const isResumeSupported = window.Blob && window.Blob.prototype.slice;
 
 function applyRequestHeaders(req, headers) {
@@ -9,13 +8,13 @@ function applyRequestHeaders(req, headers) {
   }
 }
 
-const upload = (url, {file, headers, responseType = 'json', credentials = false, onProgress} = {}) =>
+const upload = (url, {file, headers, responseType = 'json', withCredentials = false, onProgress} = {}) =>
   new Promise((resolve, reject) => {
     const data = new FormData();
     data.append('file', file);
     const req = new XMLHttpRequest();
     req.open('POST', url, true);
-    req.withCredentials = credentials;
+    req.withCredentials = withCredentials;
     req.responseType = responseType;
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
@@ -33,11 +32,11 @@ const upload = (url, {file, headers, responseType = 'json', credentials = false,
     req.send(data);
   });
 
-const download = (url, {headers, responseType = 'blob', credentials = false, onProgress} = {}) =>
+const download = (url, {headers, responseType = 'blob', withCredentials = false, onProgress} = {}) =>
   new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
     req.open('GET', url, true);
-    req.withCredentials = credentials;
+    req.withCredentials = withCredentials;
     req.responseType = responseType;
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
