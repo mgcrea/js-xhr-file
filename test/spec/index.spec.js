@@ -14,7 +14,8 @@ describe('download', () => {
     xhr = sinon.useFakeXMLHttpRequest();
     global.XMLHttpRequest = xhr;
     requests = [];
-    xhr.onCreate = (xhr) => { // eslint-disable-line no-shadow
+    xhr.onCreate = (xhr) => {
+      // eslint-disable-line no-shadow
       requests.push(xhr);
     };
   });
@@ -95,7 +96,8 @@ describe('upload', () => {
     xhr = sinon.useFakeXMLHttpRequest();
     global.XMLHttpRequest = xhr;
     requests = [];
-    xhr.onCreate = (xhr) => { // eslint-disable-line no-shadow
+    xhr.onCreate = (xhr) => {
+      // eslint-disable-line no-shadow
       requests.push(xhr);
     };
   });
@@ -168,3 +170,38 @@ describe('upload', () => {
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
   });
 });
+
+// @TODO Stuck on https://github.com/jsdom/jsdom/issues/1721
+// describe('uploadObjectURL', () => {
+//   let xhr;
+//   let requests;
+//   beforeEach(() => {
+//     xhr = sinon.useFakeXMLHttpRequest();
+//     global.XMLHttpRequest = xhr;
+//     requests = [];
+//     xhr.onCreate = (xhr) => {
+//       // eslint-disable-line no-shadow
+//       requests.push(xhr);
+//     };
+//   });
+//   afterEach(() => {
+//     xhr.restore();
+//   });
+//   it('should correctly upload an ObjectURL', (done) => {
+//     const body = {ok: true};
+//     const blob = new Blob(['foobar']);
+//     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
+//     const objectURL = URL.createObjectURL(file);
+//     uploadObjectURL(`${host}/files`, {objectURL, type: blob.type})
+//       .then((res) => {
+//         expect(res).toEqual(body);
+//         done();
+//       })
+//       .catch(done);
+//     expect(requests[0].responseType).toBe('json');
+//     expect(requests[0].withCredentials).toBe(false);
+//     expect(requests[0].requestHeaders).toEqual({});
+//     expect(requests[0].url).toBe(`${host}/files`);
+//     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
+//   });
+// });

@@ -8,7 +8,7 @@ function applyRequestHeaders(req, headers) {
   }
 }
 
-const upload = (
+export const upload = (
   url,
   {
     file,
@@ -44,7 +44,7 @@ const upload = (
     req.send(data);
   });
 
-const download = (url, {headers, responseType = 'blob', withCredentials = false, onProgress} = {}) =>
+export const download = (url, {headers, responseType = 'blob', withCredentials = false, onProgress} = {}) =>
   new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
     req.open('GET', url, true);
@@ -66,5 +66,10 @@ const download = (url, {headers, responseType = 'blob', withCredentials = false,
     req.send();
   });
 
+export const uploadObjectURL = (url, objectURL, {filename, lastModified, type, ...otherProps}) =>
+  download(objectURL).then((blob) => {
+    const file = new File([blob], filename, {lastModified, type});
+    return upload(url, {file, ...otherProps});
+  });
+
 export default upload;
-export {upload, download};
