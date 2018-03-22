@@ -72,9 +72,24 @@ describe('download', () => {
     requests[0].responseType = 'text';
     requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
   });
-  it('should correctly support credentials', (done) => {
+  it('should correctly support `withCredentials` option', (done) => {
     const body = {ok: true};
     download(`${host}/files/foo.png`, {withCredentials: true})
+      .then((res) => {
+        expect(res).toEqual(JSON.stringify(body));
+        done();
+      })
+      .catch(done);
+    expect(requests[0].responseType).toBe('blob');
+    expect(requests[0].withCredentials).toBe(true);
+    expect(requests[0].requestBody).toBe(undefined);
+    expect(requests[0].url).toBe(`${host}/files/foo.png`);
+    requests[0].responseType = 'text';
+    requests[0].respond(200, {'Content-Type': 'application/json'}, JSON.stringify(body));
+  });
+  it('should correctly support `credentials` option', (done) => {
+    const body = {ok: true};
+    download(`${host}/files/foo.png`, {credentials: 'include'})
       .then((res) => {
         expect(res).toEqual(JSON.stringify(body));
         done();

@@ -15,6 +15,7 @@ export const upload = (
     fieldName = 'file',
     headers,
     responseType = 'json',
+    credentials = false,
     withCredentials = false,
     data = new FormData(),
     onProgress
@@ -26,7 +27,7 @@ export const upload = (
     }
     const req = new XMLHttpRequest();
     req.open('POST', url, true);
-    req.withCredentials = withCredentials;
+    req.withCredentials = withCredentials || credentials === 'include';
     req.responseType = responseType;
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
@@ -44,11 +45,14 @@ export const upload = (
     req.send(data);
   });
 
-export const download = (url, {headers, responseType = 'blob', withCredentials = false, onProgress} = {}) =>
+export const download = (
+  url,
+  {headers, responseType = 'blob', credentials = false, withCredentials = false, onProgress} = {}
+) =>
   new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
     req.open('GET', url, true);
-    req.withCredentials = withCredentials;
+    req.withCredentials = withCredentials || credentials === 'include';
     req.responseType = responseType;
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
