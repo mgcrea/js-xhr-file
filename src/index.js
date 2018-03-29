@@ -32,7 +32,7 @@ export const upload = (
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
       const ok = req.status >= 200 && req.status < 300;
-      resolve(req.response, {status: req.status, ok});
+      resolve({body: req.response, status: req.status, ok});
     });
     req.upload.addEventListener('progress', (ev) => {
       if (onProgress) {
@@ -56,7 +56,7 @@ export const download = (
     applyRequestHeaders(req, headers);
     req.addEventListener('load', () => {
       const ok = req.status >= 200 && req.status < 300;
-      resolve(req.response, {status: req.status, ok});
+      resolve({body: req.response, status: req.status, ok});
     });
     req.addEventListener('progress', (ev) => {
       if (onProgress) {
