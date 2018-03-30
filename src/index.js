@@ -70,7 +70,7 @@ export const download = (
 
 export const uploadObjectURL = (url, objectURL, {filename, lastModified, type, ...otherProps}) =>
   download(objectURL).then((blob) => {
-    const file = new File([blob], filename, {lastModified, type});
+    const file = new File([blob.body], filename, {lastModified, type});
     return upload(url, {file, ...otherProps});
   });
 
