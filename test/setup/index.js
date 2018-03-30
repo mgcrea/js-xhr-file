@@ -1,1 +1,1 @@
-import 'debug-utils';
+require('debug-utils').default();

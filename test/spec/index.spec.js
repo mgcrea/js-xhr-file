@@ -26,7 +26,7 @@ describe('download', () => {
     const body = {ok: true};
     download(`${host}/files/foo.png`)
       .then((res) => {
-        expect(res).toEqual(JSON.stringify(body));
+        expect(res).toEqual({body: JSON.stringify(body), ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -43,7 +43,7 @@ describe('download', () => {
     const onProgress = jest.fn();
     download(`${host}/files/foo.png`, {onProgress})
       .then((res) => {
-        expect(res).toEqual(JSON.stringify(body));
+        expect(res).toEqual({body: JSON.stringify(body), ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -60,7 +60,7 @@ describe('download', () => {
     const body = {ok: true};
     download(`${host}/files/foo.png`, {headers: {'X-Foo': 'bar'}})
       .then((res) => {
-        expect(res).toEqual(JSON.stringify(body));
+        expect(res).toEqual({body: JSON.stringify(body), ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -76,7 +76,7 @@ describe('download', () => {
     const body = {ok: true};
     download(`${host}/files/foo.png`, {withCredentials: true})
       .then((res) => {
-        expect(res).toEqual(JSON.stringify(body));
+        expect(res).toEqual({body: JSON.stringify(body), ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -91,7 +91,7 @@ describe('download', () => {
     const body = {ok: true};
     download(`${host}/files/foo.png`, {credentials: 'include'})
       .then((res) => {
-        expect(res).toEqual(JSON.stringify(body));
+        expect(res).toEqual({body: JSON.stringify(body), ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -125,7 +125,7 @@ describe('upload', () => {
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     upload(`${host}/files`, {file})
       .then((res) => {
-        expect(res).toEqual(body);
+        expect(res).toEqual({body, ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -142,7 +142,7 @@ describe('upload', () => {
     const onProgress = jest.fn();
     upload(`${host}/files`, {file, onProgress})
       .then((res) => {
-        expect(res).toEqual(body);
+        expect(res).toEqual({body, ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -159,7 +159,7 @@ describe('upload', () => {
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     upload(`${host}/files`, {file, headers: {'X-Foo': 'bar'}})
       .then((res) => {
-        expect(res).toEqual(body);
+        expect(res).toEqual({body, ok: true, status: 200});
         done();
       })
       .catch(done);
@@ -175,7 +175,7 @@ describe('upload', () => {
     const file = new File([blob], 'rM8RrRE.jpg', {size: blob.size, type: blob.type});
     upload(`${host}/files`, {file, withCredentials: true})
       .then((res) => {
-        expect(res).toEqual(body);
+        expect(res).toEqual({body, ok: true, status: 200});
         done();
       })
       .catch(done);
