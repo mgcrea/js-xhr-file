@@ -1,12 +1,14 @@
 // const isResumeSupported = window.Blob && window.Blob.prototype.slice;
 
-function applyRequestHeaders(req, headers) {
+const applyRequestHeaders = (req, headers) => {
   if (typeof headers === 'object') {
     Object.keys(headers).forEach((key) => {
       req.setRequestHeader(key, headers[key]);
     });
   }
-}
+};
+
+const isFunction = (maybeFunction) => typeof maybeFunction === 'function';
 
 export const upload = (
   url,
@@ -22,7 +24,7 @@ export const upload = (
   } = {}
 ) =>
   new Promise((resolve, reject) => {
-    if (!data.has(fieldName)) {
+    if (file) {
       data.append(fieldName, file);
     }
     const req = new XMLHttpRequest();
