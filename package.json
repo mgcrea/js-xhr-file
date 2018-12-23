@@ -32,8 +32,10 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
     "expect": "^23.6.0",
     "jest": "^23.6.0",
+    "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
     "sinon": "^7.2.2"
   },

@@ -8,8 +8,6 @@ const applyRequestHeaders = (req, headers) => {
   }
 };
 
-const isFunction = (maybeFunction) => typeof maybeFunction === 'function';
-
 export const upload = (
   url,
   {
